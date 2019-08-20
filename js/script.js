@@ -4,7 +4,7 @@ $('#type_it_slider').typeIt({
     autoStart: false,
     loop: true,
 })
-    .tiType('<strong style="font-weight: 600">Get Ready</strong>For Portfolio')
+    .tiType('<strong style="font-weight: 600">Get Ready</strong> For Portfolio')
     .tiSettings({speed: 700})
     .tiPause(1000)
     .tiSettings({speed: 50})
@@ -45,10 +45,10 @@ window.onload = function() {
 
 $(window).on('scroll', function () {
     if ($(window).scrollTop() > 0) { // Set position from top to add class
-        $('.navbar').addClass("scrolling-bg");
+        $('.web-nav').addClass("scrolling-bg");
 
     }
     else {
-        $('.navbar').removeClass("scrolling-bg");
+        $('.web-nav').removeClass("scrolling-bg");
     }
 });
