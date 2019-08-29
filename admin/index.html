@@ -165,18 +165,7 @@ const guideList= document.querySelector('.guides');
   }
 });
 
-	
-	//search about the user
- // add new link to user button 
-	 document.getElementById("btn_add").addEventListener('click', e=>{
-	 const title=document.getElementById('title').value;
-	 const link=document.getElementById('link').value;
-    db.collection('users').doc(user_mail).collection('user-button').set({
-       Title: title,
-       Link: link
-    })
-});
-   
+
      </script>
     
 
@@ -188,7 +177,25 @@ document.getElementById("btn_logout").addEventListener('click', e=>{
 })
  </script>
 
+<script>  
+	
+firebase.auth().onAuthStateChanged(user=>{ 
 
+  if(user){
+   const user_mail= user.email;
+	// add new link to user button 
+	 document.getElementById("btn_add").addEventListener('click', e=>{
+	 const title=document.getElementById('title').value;
+	 const link=document.getElementById('link').value;
+    db.collection('users').doc(user_mail).collection('user-button').set({
+       Title: title,
+       Link: link
+    })
+});
+   
+  }
+	  
+	</script>
 
 
 </body>
