@@ -10,8 +10,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+   
+   
+
+  
+   
 	
-	<h1> welcome  </h1> 
+  <h1> welcome  <span id="admin-name"> </span> </h1> 
+  
+
+
   <h1 id="email_txt"></h1> 		        
 	<button  type="submit" id="btn_logout">
 							logout
@@ -22,8 +30,8 @@
             
 
             
-            <div class="container">
-                <h2>Striped Rows</h2>
+            <div class="container text-center">
+                <h2>Welcome </h2>
                 <p>The .table-striped class adds zebra-stripes to a table:</p>            
                 <table class="table table-striped guides">
                  
@@ -33,6 +41,7 @@
                   </tbody>
                 </table>
               </div>
+               
                
         
 
@@ -73,15 +82,28 @@ firebase.auth().onAuthStateChanged(user=>{
 
   if(user){
    const user_mail= user.email;
-   console.log(user_mail);
+   console.log(user.email);
    	  
 	 } 
   else {
    window.location='http://madhaba.me/Link-Aggregator/Login/index.html';
   }
-})
+});
 
 	
+	//search about the user
+ var docRef = db.collection("users").doc(user_mail);
+
+    docRef.get().then(function(doc) {
+        if (doc.exists) {
+            document.getElementById('admin-name').innerHTML=user_mail;
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });	
    
      </script>
     
