@@ -16,7 +16,7 @@
   
    
 	
-  <h1> welcome  <span id="admin-name"> </span> </h1> 
+ 
   
 
 
@@ -31,7 +31,7 @@
 
             
             <div class="container text-center">
-                <h2>Welcome </h2>
+                <h2>Welcome <span id="admin_name"> </span>  </h2>
                 <p>The .table-striped class adds zebra-stripes to a table:</p>            
                 <table class="table table-striped guides">
                  
@@ -87,6 +87,7 @@ firebase.auth().onAuthStateChanged(user=>{
     docRef.get().then(function(doc) {
         if (doc.exists) {
            console.log(doc.data());
+		document.getElementById('admin_name').innerHTML=doc.data().Username;
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
