@@ -181,7 +181,15 @@ document.getElementById("btn_logout").addEventListener('click', e=>{
  </script>
 
 
-    
+ <script>
+	// add new link to user button 
+	 const title=document.getElementById('title').value;
+	 const link=document.getElementById('link').value;
+    db.collection('users').doc(user_mail).collection('user-button').set({
+       Title: title,
+       Link: link
+})
+</script
 
 
 </body>
