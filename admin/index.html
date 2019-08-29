@@ -83,6 +83,15 @@ firebase.auth().onAuthStateChanged(user=>{
   if(user){
    const user_mail= user.email;
    console.log(user.email);
+var docRef = db.collection("users").doc(user_mail);
+
+    docRef.get().then(function(doc) {
+        if (doc.exists) {
+            document.getElementById('admin-name').innerHTML=user_mail;
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
    	  
 	 } 
   else {
@@ -92,18 +101,7 @@ firebase.auth().onAuthStateChanged(user=>{
 
 	
 	//search about the user
- var docRef = db.collection("users").doc(user_mail);
-
-    docRef.get().then(function(doc) {
-        if (doc.exists) {
-            document.getElementById('admin-name').innerHTML=user_mail;
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
-    }).catch(function(error) {
-        console.log("Error getting document:", error);
-    });	
+ 
    
      </script>
     
