@@ -82,43 +82,18 @@ firebase.auth().onAuthStateChanged(user=>{
   if(user){
    const user_mail= user.email;
    console.log(user.email);
+	  
+	  // search for user
     var docRef = db.collection("users").doc(user_mail);
 
     docRef.get().then(function(doc) {
         if (doc.exists) {
            console.log(doc.data());
 		document.getElementById('admin_name').innerHTML=doc.data().Username;
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
-   	  
-	 }) 
-  }
-  else {
-   window.location='http://madhaba.me/Link-Aggregator/Login/index.html';
-  }
-});
 
-	
-	//search about the user
- 
-   
-     </script>
-    
-
-<script>  
-
-document.getElementById("btn_logout").addEventListener('click', e=>{
-  firebase.auth().signOut();
-  
-})
- </script>
-
-
-    
-<script>
- db.collection('users').doc('helloworld').collection('user-button').get().then(snapshot => {
+		// List of Buttons which is created bu user
+		
+		 db.collection('users').doc(user_mail).collection('user-button').get().then(snapshot => {
    
    setupGuides(snapshot.docs);
  }) ;
@@ -163,8 +138,37 @@ const guideList= document.querySelector('.guides');
   guideList.innerHTML=html;
   
  }
+		
+        } // if docs exist closed
+	    else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+   	  
+	 }) 
+  }
+  else {
+   window.location='http://madhaba.me/Link-Aggregator/Login/index.html';
+  }
+});
+
+	
+	//search about the user
  
+   
+     </script>
+    
+
+<script>  
+
+document.getElementById("btn_logout").addEventListener('click', e=>{
+  firebase.auth().signOut();
+  
+})
  </script>
+
+
+    
 
 
 </body>
