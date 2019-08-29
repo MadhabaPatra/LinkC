@@ -86,7 +86,7 @@ firebase.auth().onAuthStateChanged(user=>{
 
     docRef.get().then(function(doc) {
         if (doc.exists) {
-            document.getElementById('admin-name').innerHTML=user_mail;
+           console.log(doc.data());
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
