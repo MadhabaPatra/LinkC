@@ -34,7 +34,7 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
-				<form class="login100-form validate-form flex-sb flex-w">
+				<section class="login100-form validate-form flex-sb flex-w">
 					<span class="login100-form-title p-b-53">
 						Login With
 					</span>
@@ -51,11 +51,11 @@
 					
 					<div class="p-t-31 p-b-9">
 						<span class="txt1">
-							Username
+							Email
 						</span>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate = "Username is required">
-						<input class="input100" type="text" name="username" >
+						<input class="input100" type="text" name="email" >
 						<span class="focus-input100"></span>
 					</div>
 					
@@ -74,7 +74,7 @@
 					</div>
 
 					<div class="container-login100-form-btn m-t-17">
-						<button class="login100-form-btn">
+						<button class="login100-form-btn" id="btn_login">
 							Sign In
 						</button>
 					</div>
@@ -84,11 +84,11 @@
 							Not a member?
 						</span>
 
-						<a href="#" class="txt2 bo1">
+						<a href="http://madhaba.me/Link-Aggregator/Register/index.html" class="txt2 bo1">
 							Sign up now
 						</a>
 					</div>
-				</form>
+				</section>
 			</div>
 		</div>
 	</div>
@@ -112,6 +112,57 @@
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-firestore.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+	https://firebase.google.com/docs/web/setup#config-web-app -->
 
+<script>  
+// Your web app's Firebase configuration
+var firebaseConfig = {
+	apiKey: "AIzaSyBv6yIMLAPO2AsrQDSMCuNSzWQKeGgUq5A",
+	authDomain: "test-18579.firebaseapp.com",
+	databaseURL: "https://test-18579.firebaseio.com",
+	projectId: "test-18579",
+	storageBucket: "test-18579.appspot.com",
+	messagingSenderId: "119631748247",
+	appId: "1:119631748247:web:79ba28cac84bdc4a"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+var auth=firebase.auth();
+const db=firebase.firestore();
+
+
+</script>
+
+
+<script>  
+//Login to firebase
+    document.getElementById("btn_login").addEventListener('click', e=>{
+    const email = document.getElementById("email").value;
+    const pass = document.getElementById("pass").value;
+    const promise = firebase.auth().signInWithEmailAndPassword(email, pass);
+    promise.catch(e=>{ console.log(e.massage)})
+})
+
+</script>
+
+<script>  
+
+    firebase.auth().onAuthStateChanged(user=>{ 
+ 
+      if(user){
+          window.location = 'http://madhaba.me/Link-Aggregator/admin/index.html';
+         } 
+     
+  })
+
+</script>
+	
+	
+	
 </body>
 </html>
