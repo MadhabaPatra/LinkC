@@ -76,14 +76,12 @@
 
 
 <script>  
-
-
 firebase.auth().onAuthStateChanged(user=>{ 
 
   if(user){
    const user_mail= user.email;
    console.log(user.email);
-var docRef = db.collection("users").doc(user_mail);
+    var docRef = db.collection("users").doc(user_mail);
 
     docRef.get().then(function(doc) {
         if (doc.exists) {
@@ -94,6 +92,7 @@ var docRef = db.collection("users").doc(user_mail);
         }
    	  
 	 }) 
+  }
   else {
    window.location='http://madhaba.me/Link-Aggregator/Login/index.html';
   }
