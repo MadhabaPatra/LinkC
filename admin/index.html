@@ -76,6 +76,7 @@
 
 
 <script>  
+	const db=firebase.firestore();
 firebase.auth().onAuthStateChanged(user=>{ 
 
   if(user){
