@@ -187,12 +187,18 @@ firebase.auth().onAuthStateChanged(user=>{
 	 document.getElementById("btn_add").addEventListener('click', e=>{
 	 const title=document.getElementById('title').value;
 	 const link=document.getElementById('link').value;
-    db.collection('users').doc(user_mail).collection('user-button').set({
-       Title: title,
-       Link: link
-    })
-}) 
-  }
+      db.collection('users').doc(user_mail).collection('user-button').add({
+          Title: title,
+          Link: link
+           })
+        .then(function(docRef) {
+        window.location='http://madhaba.me/Link-Aggregator/admin/index.html';
+             })
+
+	 
+	 
+	 }) // end of button event
+  } //end of if 
 });
 	  
 	</script>
