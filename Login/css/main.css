@@ -45,6 +45,7 @@ a {
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
+	text-decoration:none;
 	margin: 0px;
 	transition: all 0.4s;
 	-webkit-transition: all 0.4s;
