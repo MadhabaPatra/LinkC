@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<title>Register</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	
+	<h1> welcome  </h1> 
+  <h1 id="email_txt"></h1> 		        
+	<button  type="submit" id="btn_logout">
+							logout
+            </button>
+            <button  type="submit" id="btn_add">
+						ADD LINK
+            </button>
+            
+
+            
+            <div class="container">
+                <h2>Striped Rows</h2>
+                <p>The .table-striped class adds zebra-stripes to a table:</p>            
+                <table class="table table-striped guides">
+                 
+                  <tbody>
+                   
+                   
+                  </tbody>
+                </table>
+              </div>
+               
+        
+
+	
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-firestore.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#config-web-app -->
+
+    <script>  
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyBv6yIMLAPO2AsrQDSMCuNSzWQKeGgUq5A",
+        authDomain: "test-18579.firebaseapp.com",
+        databaseURL: "https://test-18579.firebaseio.com",
+        projectId: "test-18579",
+        storageBucket: "test-18579.appspot.com",
+        messagingSenderId: "119631748247",
+        appId: "1:119631748247:web:79ba28cac84bdc4a"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    var auth=firebase.auth();
+    const db=firebase.firestore();
+
+    
+
+    </script>
+
+
+
+<script>  
+
+
+firebase.auth().onAuthStateChanged(user=>{ 
+
+  if(user){
+   const user_mail= user.email;
+   console.log(user_mail);
+   	  
+	 } 
+  else {
+   window.location='http://madhaba.me/Link-Aggregator/Login/index.html';
+  }
+})
+
+	
+   
+     </script>
+    
+
+<script>  
+
+document.getElementById("btn_logout").addEventListener('click', e=>{
+  firebase.auth().signOut();
+  
+})
+ </script>
+
+
+    
+<script>
+ db.collection('users').doc('helloworld').collection('user-button').get().then(snapshot => {
+   
+   setupGuides(snapshot.docs);
+ }) ;
+ 
+const guideList= document.querySelector('.guides');
+
+ const setupGuides= (data) =>{
+  let html='';
+   const head=`
+   <thead>
+                    <tr>
+                     
+                      <th>Titles</th>
+                      <th>Links</th>
+                      <th>DELETE BUTTON</th>
+                    </tr>
+                  </thead>
+   `;
+   html+=head;
+  data.forEach(docs=> {
+    const users=docs.data();
+    
+    const li= `
+    <tr>
+    <td>   
+     ${users.Title} 
+     </td>
+    
+     <td>
+     <a href=' ${users.Link}
+     '> ${users.Link}</a>
+     </td>
+     <td>
+        <button type="button" class="btn btn-danger delete-btn" >Delete</button>
+     </td>
+     </tr>
+     
+    `;
+    
+    html+=li
+  });
+  guideList.innerHTML=html;
+  
+ }
+ 
+ </script>
+
+
+</body>
+</html>
