@@ -43,7 +43,9 @@ body {
     /* When you mouse over the navigation links, change their color */
     /* Position and style the close button (top right corner) */
 }
-
+.navbar-nav li{
+    margin: 20px;
+}
 .navbar .navbar-nav li a {
     color: #ffffff;
     -webkit-transition: border-color 300ms linear;
@@ -52,6 +54,7 @@ body {
     font-family: "Raleway", sans-serif;
     text-transform: capitalize;
     font-weight: 300;
+    text-decoration: none;
     -webkit-transition: all linear 300ms;
     transition: all linear 300ms;
 }
@@ -69,6 +72,7 @@ body {
 /* Navigation Bar Signup Button Styling */
 
 #highlight-link a {
+    padding: 13px;
     font-weight:bold;
     background: #3aa9d8;
     color:#ffffff;
@@ -104,13 +108,15 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
-    .web-nav {
-        display:none;
+   .navbar-right{
+        display: none;
     }
-}
-@media only screen and (min-width: 768px) {
-    .mob-nav {
-        display:none;
+    .navbar-brand{
+        display: none;
+    }
+   
+     ul li a{
+         padding: 10px;
     }
 }
 
