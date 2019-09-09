@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -14,8 +15,11 @@
   
             <div class="container text-center">
                 <h2>Welcome <span id="admin_name"> </span>  </h2>
-       <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Add New Link </button> &nbsp;&nbsp; &nbsp; <button type="button" class="btn btn-danger" id="btn_logout">Logout</button></p>            
-               
+       <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Add New Link </button> &nbsp;&nbsp; &nbsp;
+        <button type="button" class="btn btn-success" id="btn_add_col" data-toggle="modal" data-target="#exampleModal2">Template</button>&nbsp;&nbsp; &nbsp; 
+        <button type="button" class="btn btn-danger" id="btn_logout">Logout</button>
+         
+        </p>      
 		    
 		    <table class="table table-striped guides">
                  <div class="alert alert-success">
@@ -61,7 +65,79 @@
   </div>
 </div>      
         
+<!-- Model open after click Template -->    
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Template</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-xs-12 text-center">
+          <label class="image-radio">
+              <img class="img-responsive" src="1.png" />
+              <input type="radio" name="image_radio" id="r1" value="1" />
+              <i class="glyphicon glyphicon-ok hidden"></i>
+          </label>
+      </div>
+      <div class="col-xs-12 text-center">
+          <label class="image-radio">
+              <img class="img-responsive" src="2.png" />
+              <input type="radio" name="image_radio" id="r2" value="2" />
+              <i class="glyphicon glyphicon-ok hidden"></i>
+          </label>
+      </div>
+      <div class="col-xs-12 nopad text-center">
+          <label class="image-radio">
+              <img class="img-responsive" src="3.png" />
+              <input type="radio" name="image_radio" id="r3" value="3" />
+              <i class="glyphicon glyphicon-ok hidden"></i>
+          </label>
+      </div>
+      <div class="col-xs-12 nopad text-center">
+          <label class="image-radio">
+              <img class="img-responsive" src="4.png" />
+              <input type="radio" name="image_radio" id="r4" value="4" />
+              <i class="glyphicon glyphicon-ok hidden"></i>
+          </label>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" id="update_temp">Update Template</button>
+      </div>
+    </div>
+  </div>
+</div>      
+      
+<script>
+ $(document).ready(function(){
+    // add/remove checked class
+    $(".image-radio").each(function(){
+        if($(this).find('input[type="radio"]').first().attr("checked")){
+            $(this).addClass('image-radio-checked');
+        }else{
+            $(this).removeClass('image-radio-checked');
+        }
+    });
 
+    // sync the input state
+    $(".image-radio").on("click", function(e){
+        $(".image-radio").removeClass('image-radio-checked');
+        $(this).addClass('image-radio-checked');
+        var $radio = $(this).find('input[type="radio"]');
+        $radio.prop("checked",!$radio.prop("checked"));
+
+        e.preventDefault();
+    });
+});
+
+  </script>	
+	
+	
 	
         <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
@@ -205,6 +281,33 @@ firebase.auth().onAuthStateChanged(user=>{
              }) 
 
 	 
+	 
+	 }) // end of button event
+	  
+	  // set template color 
+        document.getElementById("update_temp").addEventListener('click', e=>{
+         var rate_value;
+          if (document.getElementById('r1').checked) {
+        rate_value = document.getElementById('r1').value;
+        }
+        else if (document.getElementById('r2').checked) {
+          rate_value = document.getElementById('r2').value;
+        } 
+        else if (document.getElementById('r3').checked) {
+          rate_value = document.getElementById('r3').value;
+        }
+        else if(document.getElementById('r4').checked) {
+          rate_value = document.getElementById('r4').value;
+        }
+alert(rate_value);
+      var colorRef = db.collection("users").doc(user_mail);
+
+          return colorRef.update({
+              col: rate_value
+        })
+         .then(function() {
+    console.log("Document successfully updated!");
+             })
 	 
 	 }) // end of button event
   } //end of if 
