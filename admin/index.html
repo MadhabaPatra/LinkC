@@ -99,9 +99,9 @@ firebase.auth().onAuthStateChanged(user=>{
   if(user){
    const user_mail= user.email;
 	  //User Dyanamic Link
-	  var cust-link="LinkC/"+user_mail;
-	  document.getElementById('user-link').innerHTML=cust-link;
-	 document.getElementById('user-link').href="http://localhost:9000/"+cust-link;
+	  var cust_link="LinkC/"+user_mail;
+	  document.getElementById('user-link').innerHTML=cust_link;
+	 document.getElementById('user-link').href="http://localhost:9000/"+cust_link;
    console.log(user.email);
 	  
 	  // search for user
