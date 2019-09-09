@@ -164,7 +164,7 @@
 			console.log("Document data:", doc.data());
 		} else {
 			firebase.auth().createUserWithEmailAndPassword(email, pass);
-				db.collection("users").doc(userId).set({
+				db.collection("users").doc(email).set({
 					Email: email,
 					Password: pass,
 					Username: userId
