@@ -57,8 +57,8 @@
                             <li><a href="#contact-form" class="link">Contact Us</a></li> 
                         </ul>
                         <ul class="nav  navbar-nav navbar-right">
-                              <li><a href="Login/index.html" class="link">Login</a></li>
-                             <li id="highlight-link"><a href="Register/index.html" class="link">Sign Up Free</a></li>
+                              <li><a href="Login/index.html" class="link" id="log-btn">Login</a></li>
+                             <li id="highlight-link"><a href="Register/index.html" class="link" id="sign-btn">Sign Up</a></li>
                         </ul>                 
                    </div><!-- /Top-nav closed div  -->
                   </nav> <!-- /web-nav closed div  -->
@@ -165,6 +165,61 @@
                                         <script src="js/parallax.min.js"></script>      
  <!------------------------------------------------------ Custom JavaScript  --------------------------------------------------------------->
                                             <script src="js/script.js"></script>
-     
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-firestore.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+	https://firebase.google.com/docs/web/setup#config-web-app -->
+
+        <script>  
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBv6yIMLAPO2AsrQDSMCuNSzWQKeGgUq5A",
+            authDomain: "test-18579.firebaseapp.com",
+            databaseURL: "https://test-18579.firebaseio.com",
+            projectId: "test-18579",
+            storageBucket: "test-18579.appspot.com",
+            messagingSenderId: "119631748247",
+            appId: "1:119631748247:web:79ba28cac84bdc4a"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var auth=firebase.auth();
+        const db=firebase.firestore();
+
+
+        </script>
+
+    <script>  
+
+          firebase.auth().onAuthStateChanged(user=>{ 
+
+            if(user){
+              //Logout Button After Login
+                document.getElementById('log-btn').innerHTML="Logout";
+                document.getElementById("log-btn").href = "#";
+                //Admin Dropdown After Login
+                var docRef = db.collection("users").doc(user.email);
+                docRef.get().then(function(doc) {
+                if (doc.exists) {
+                   console.log(doc.data());
+                document.getElementById('sign-btn').innerHTML=doc.data().Username;
+                }
+         });
+
+                  document.getElementById("sign-btn").href = "admin/index.html";
+                 //Logout  Click
+
+                document.getElementById("log-btn").addEventListener('click', e=>{
+          firebase.auth().signOut();
+
+        })
+
+               }
+
+        })
+
+        </script>   
     </body>
 </html>
