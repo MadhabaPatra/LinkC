@@ -19,7 +19,7 @@
 		    
 		    <table class="table table-striped guides">
                  <div class="alert alert-success">
-       your site is published at <a href="http://madhaba.me/Link-Aggregator/userpage.html" >link.c/tyu@gmail.com</a>
+       your site is published at <a id="user-ink"></a>
                   </div>
                   <tbody>
                    
@@ -98,6 +98,10 @@ firebase.auth().onAuthStateChanged(user=>{
 
   if(user){
    const user_mail= user.email;
+	  //User Dyanamic Link
+	  var cust-link="LinkC/"+user_mail;
+	  document.getElementById('user-link').innerHTML=cust-link;
+	 document.getElementById('user-link').href="http://localhost:9000/"+cust-link;
    console.log(user.email);
 	  
 	  // search for user
