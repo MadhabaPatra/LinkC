@@ -279,6 +279,7 @@ document.getElementById("btn_logout").addEventListener('click', e=>{
 })
  </script>
 
+
 <script>  
 	
 firebase.auth().onAuthStateChanged(user=>{ 
@@ -292,7 +293,10 @@ firebase.auth().onAuthStateChanged(user=>{
             // doc.data() is never undefined for query doc snapshots
             const user_name=doc.id;
 		console.log(user_name)
-	// add new link to user button 
+        })
+    })
+
+    // add new link to user button 
 	 document.getElementById("btn_add").addEventListener('click', e=>{
 	 const title=document.getElementById('title').value;
 	 const link=document.getElementById('link').value;
@@ -303,10 +307,9 @@ firebase.auth().onAuthStateChanged(user=>{
         .then(function(docRef) {
         window.location='http://madhaba.me/Link-Aggregator/admin/index.html';
              }) 
-
 	 
 	 
-	 }) // end of button event
+	 }) // end of btn_add event
 	  
 	  // set template color 
         document.getElementById("update_temp").addEventListener('click', e=>{
@@ -323,7 +326,7 @@ firebase.auth().onAuthStateChanged(user=>{
         else if(document.getElementById('r4').checked) {
           rate_value = document.getElementById('r4').value;
         }
-alert(rate_value);
+
       var colorRef = db.collection("users").doc(user_mail);
 
           return colorRef.update({
@@ -333,11 +336,12 @@ alert(rate_value);
     console.log("Document successfully updated!");
              })
 	 
-	 }) // end of button event
-  } //end of if 
-});
-	  
-	</script>
+	 }) // end of update_temp event
+  
+   } //user end
+}) //auth end
+
+</script>
 
 
 </body>
