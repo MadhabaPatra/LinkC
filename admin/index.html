@@ -324,13 +324,14 @@ firebase.auth().onAuthStateChanged(user=>{
           rate_value = document.getElementById('r4').value;
         }
 
-      var colorRef = db.collection("users").doc(user_mail);
+      var colorRef = db.collection("users").doc(user_name);
 
           return colorRef.update({
               col: rate_value
         })
          .then(function() {
     console.log("Document successfully updated!");
+window.location='http://madhaba.me/Link-Aggregator/admin/index.html';
              })
 	 
 	 }) // end of update_temp event
