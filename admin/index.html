@@ -174,14 +174,23 @@ firebase.auth().onAuthStateChanged(user=>{
 
   if(user){
    const user_mail= user.email;
-	  //User Dyanamic Link
-	  const cust_link="LinkC/"+user_mail;
+	  //serch username
+	  
+db.collection("users").where("Email", "==", user_mail)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            const user_name=doc.id;
+		//User Dyanamic Link
+	  const cust_link="LinkC/"+user_name;
 	  document.getElementById('user-link').innerHTML=cust_link;
 	 document.getElementById('user-link').href="http://localhost:9000/"+cust_link;
-   console.log(user.email);
+   console.log(user_name);
+	  
 	  
 	  // search for user
-    var docRef = db.collection("users").doc(user_mail);
+    var docRef = db.collection("users").doc(user_name);
 
     docRef.get().then(function(doc) {
         if (doc.exists) {
@@ -244,6 +253,13 @@ const guideList= document.querySelector('.guides');
         }
    	  
 	 }) 
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+
+	  
   }
   else {
    window.location='http://madhaba.me/Link-Aggregator/Login/index.html';
