@@ -201,7 +201,7 @@ db.collection("users").where("Email", "==", user_mail)
 		document.getElementById('page-title').innerHTML=doc.data().Username;
 		// List of Buttons which is created bu user
 		
-		 db.collection('users').doc(user_mail).collection('user-button').get().then(snapshot => {
+		 db.collection('users').doc(user_name).collection('user-button').get().then(snapshot => {
    
    setupGuides(snapshot.docs);
  }) ;
