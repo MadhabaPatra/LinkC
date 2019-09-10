@@ -293,10 +293,7 @@ firebase.auth().onAuthStateChanged(user=>{
             // doc.data() is never undefined for query doc snapshots
             const user_name=doc.id;
 		console.log(user_name)
-        })
-    })
-
-    // add new link to user button 
+		    // add new link to user button 
 	 document.getElementById("btn_add").addEventListener('click', e=>{
 	 const title=document.getElementById('title').value;
 	 const link=document.getElementById('link').value;
@@ -337,6 +334,10 @@ firebase.auth().onAuthStateChanged(user=>{
              })
 	 
 	 }) // end of update_temp event
+        })
+    })
+
+
   
    } //user end
 }) //auth end
