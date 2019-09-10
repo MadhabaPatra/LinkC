@@ -188,6 +188,7 @@ db.collection("users").where("Email", "==", user_mail)
 	 document.getElementById('user-link').href="http://localhost:9000/"+cust_link;
    console.log(user_name);
 	  
+		//
 	  
 	  // search for user
     var docRef = db.collection("users").doc(user_name);
@@ -284,11 +285,18 @@ firebase.auth().onAuthStateChanged(user=>{
 
   if(user){
    const user_mail= user.email;
+	  db.collection("users").where("Email", "==", user_mail)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            const user_name=doc.id;
+		
 	// add new link to user button 
 	 document.getElementById("btn_add").addEventListener('click', e=>{
 	 const title=document.getElementById('title').value;
 	 const link=document.getElementById('link').value;
-      db.collection('users').doc(user_mail).collection('user-button').add({
+      db.collection('users').doc(user_name).collection('user-button').add({
           Title: title,
           Link: link
            })
