@@ -184,7 +184,7 @@
   
           <p class="footer-company-about">
             <span>About the company</span>
-            Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.
+            You only get one chance to link.Make it do more.
           </p>
   
           <div class="footer-icons">
@@ -198,7 +198,6 @@
         
         </div>
       </footer>              
-
 
 
      
@@ -255,25 +254,31 @@
               //Logout Button After Login
                 document.getElementById('log-btn').innerHTML="Logout";
                 document.getElementById("log-btn").href = "#";
+                document.getElementById("sign-btn").href = "admin/index.html";
                 //Admin Dropdown After Login
-		    db.collection("users").where("Email", "==", user.mail).get().then(function(querySnapshot) {
-              querySnapshot.forEach(function(doc) {
-                     // doc.data() is never undefined for query doc snapshots
-                  const user_name=doc.id;
-		console.log(doc.data());
-                document.getElementById('sign-btn').innerHTML=doc.data().Username;
-	    })
-             });
-               
-                  document.getElementById("sign-btn").href = "admin/index.html";
-                 //Logout  Click
-
-                document.getElementById("log-btn").addEventListener('click', e=>{
-          firebase.auth().signOut();
-
+                const user_mail= user.email;
+	  //serch username
+	  
+db.collection("users").where("Email", "==", user_mail)
+.get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            const user_name=doc.id;
+            document.getElementById('sign-btn').innerHTML=user_name;
+            console.log(doc.data());
         })
+    }) //end:search the user name   
 
-               }
+                 //Logout  Click
+                document.getElementById("log-btn").addEventListener('click', e=>{
+          firebase.auth().signOut().then(function(querySnapshot) {
+           
+            window.location="index.html";
+            console.log("signed out");
+          })
+        })// btn event end
+               }// end of if user
 
         })
 
