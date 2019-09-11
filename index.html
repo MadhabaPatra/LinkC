@@ -256,14 +256,15 @@
                 document.getElementById('log-btn').innerHTML="Logout";
                 document.getElementById("log-btn").href = "#";
                 //Admin Dropdown After Login
-                var docRef = db.collection("users").doc(user.email);
-                docRef.get().then(function(doc) {
-                if (doc.exists) {
-                   console.log(doc.data());
+		    db.collection("users").where("Email", "==", user.mail).get().then(function(querySnapshot) {
+              querySnapshot.forEach(function(doc) {
+                     // doc.data() is never undefined for query doc snapshots
+                  const user_name=doc.id;
+		console.log(doc.data());
                 document.getElementById('sign-btn').innerHTML=doc.data().Username;
-                }
-         });
-
+	    })
+             });
+               
                   document.getElementById("sign-btn").href = "admin/index.html";
                  //Logout  Click
 
