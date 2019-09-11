@@ -88,11 +88,14 @@
 					</div>
 
 					<div class="w-full text-center p-t-55">
+							<b id="msg">
+						
+								</b> <br>
 						<span class="txt2">
 							Already a member?
 						</span>
 
-						<a href="#" class="txt2 bo1">
+						<a href="../Login/index.html" class="txt2 bo1">
 							Sign in now
 						</a>
 					</div>
@@ -146,46 +149,77 @@
 </script>
 
   
-  <script>  // SIGN UP USER
-  
-
+  <script> 
+	  // After Clicking Sign Up Button
 	document.getElementById("btn_signup").addEventListener('click', e=>{
 	 const email = document.getElementById("email").value;
 	 const pass = document.getElementById("pass").value;
 	 const userId=document.getElementById("username").value;
-
-// check username exist or not  
-  
-
+     if(userId == ""){
+		document.getElementById("msg").innerHTML="please enter your username";
+        document.getElementById("msg").style.color="red"; 
+		   }
+	if(pass== ""){
+		document.getElementById("msg").innerHTML="please enter your password";
+        document.getElementById("msg").style.color="red"; 
+		   }
+// Validation and User Register And Write Data Into Database 
+  else{
 	var docRef = db.collection("users").doc(userId);
-
+          
 	docRef.get().then(function(doc) {
+		//if username is taken
 		if (doc.exists) {
 			console.log("Document data:", doc.data());
+		  document.getElementById("msg").innerHTML="User name already taken";
+                  document.getElementById("msg").style.color="red";
+
 		} else {
-			firebase.auth().createUserWithEmailAndPassword(email, pass);
+			 //signed up and insert data into database
+			firebase.auth().createUserWithEmailAndPassword(email, pass).then(function(querySnapshot) {
 				db.collection("users").doc(userId).set({
 					Email: email,
 					Password: pass,
 					Username: userId,
-					col: "4"
+					col: "4",
+					type: "Free"
 					})
-			
+				//error if wrong details
+			}).catch(function(error) {
+				if(error.code=="auth/invalid-email"){
+          document.getElementById("msg").innerHTML="Invalid Email Entered";
+          document.getElementById("msg").style.color="red";
+                       }
+            else if(error.code=="auth/email-already-in-use"){
+          document.getElementById("msg").innerHTML="The email address is already in use ";
+          document.getElementById("msg").style.color="red";
+                       }
+			else if(error.code=="auth/weak-password"){
+          document.getElementById("msg").innerHTML="Password should be at least 6 characters";
+          document.getElementById("msg").style.color="red";
+                       }
+             else {
+          document.getElementById("msg").innerHTML="Server Down";
+          document.getElementById("msg").style.color="yellow";
+                }
+		console.log(error);
+	})
 		}
 	}).catch(function(error) {
+		document.getElementById("msg").innerHTML="Server Down";
+                document.getElementById("msg").style.color="yellow";
 		console.log("Error getting document:", error);
 	})
-	
+}// end of else statement if username and password not null)
 	});// button event closed
 </script>
 
 
 <script>  
-
-	firebase.auth().onAuthStateChanged(user=>{ 
-
+//if signed redirect to admin page
+firebase.auth().onAuthStateChanged(user=>{ 
 	if(user){
-		window.location = 'http://madhaba.me/Link-Aggregator/admin/index.html';
+		window.location = '../admin/index.html';
 		} 
 	})
 </script>
