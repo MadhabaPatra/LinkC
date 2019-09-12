@@ -53,7 +53,7 @@
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Your Link:</label>
-            <input type="text" class="form-control" id="link" />
+            <input type="text" class="form-control" id="link" value="https://" />
           </div>
         </form>
       </div>
@@ -185,7 +185,7 @@ db.collection("users").where("Email", "==", user_mail)
 		//User Dyanamic Link
 	  const cust_link="LinkC/"+user_name;
 	  document.getElementById('user-link').innerHTML=cust_link;
-	 document.getElementById('user-link').href="http://localhost:9000/"+cust_link;
+	 document.getElementById('user-link').href="http://link-keep-er.herokuapp.com/"+cust_link;
    console.log(user_name);
 	  
 		//
