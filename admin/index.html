@@ -199,6 +199,28 @@ db.collection("users").where("Email", "==", user_mail)
 		document.getElementById('admin_name').innerHTML=doc.data().Username;
                   
 		document.getElementById('page-title').innerHTML=doc.data().Username;
+		
+		
+		 //Action button to  Delete  Link
+var parent=document.querySelector('.guides');
+     parent.addEventListener('click',DeleteLink,false);
+     function DeleteLink(e){
+       
+       if(e.target !=e.currentTarget){
+         var clickedbtn=e.target.id;
+      // Delete button Perform
+     if(e.target.textContent=="Delete"){
+       db.collection('users').doc(user_name).collection('user-button').doc(clickedbtn).delete().then(function() {
+    console.log("Document successfully deleted!");
+    window.location="index.html";
+}).catch(function(error) {
+    console.error("Error removing document: ", error);
+});
+}
+	       }
+       e.stopPropagation();
+     }
+		
 		// List of Buttons which is created bu user
 		
 		 db.collection('users').doc(user_name).collection('user-button').get().then(snapshot => {
@@ -235,7 +257,7 @@ const guideList= document.querySelector('.guides');
      '> ${users.Link}</a>
      </td>
      <td>
-        <button type="button" class="btn btn-danger delete-btn" >Delete</button>
+        <button type="button" class="btn btn-danger" id="${id}" >Delete</button>
      </td>
      </tr>
      
