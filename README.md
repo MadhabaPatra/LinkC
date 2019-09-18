@@ -1,4 +1,4 @@
-# Link-Aggregator
+# LinkC
 Make All Your Link Together
 
 # About
