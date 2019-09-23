@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700&amp;display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<title id="page-title"></title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    /* font-family: 'Montserrat', sans-serif; */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+
+
+    body{
+        /* fallback for old browsers */
+        
+        width: 100%;
+        padding-top: 20px;
+    }
+    h4{
+        font-family: Karla,Helvetica,sans-serif;
+        color: white; 
+    }
+    .link-button{
+        color:white;
+        border: 2px solid white;
+        margin-bottom: 10px;
+        width: 70%;
+        padding:15px;
+        line-height: 1.5;
+        font-weight:bold;
+        font-family: Karla,Helvetica,sans-serif;
+    }
+    .btn-link{
+          
+          }
+    .link-button:hover{
+        background-color: white;
+        color:blue;
+    }
+    .avatar{
+        border-radius: 50%;
+        width: 200px;
+        
+        vertical-align: middle;
+    }
+    .brand{
+        width: 100%;
+        
+        background-color: white;
+        bottom:0px;
+        position: absolute;
+    }
+   
+    </style>
+<body id="body-id">
+  
+            <div class="container text-center" id="cust_col">
+                
+                <img src="/images/avatar.png" alt="" class="avatar" />
+                <h4>@ <span id="admin_name"> </span>  </h4>
+              </div>
+	
+                <div class="container guides text-center">
+                 
+                  
+                </div>
+             
+               <div class="footer text-center brand">
+                   <a href="../LinkC.madhaba.me"><img src="/images/logo.png" alt="" class="logo"/> </a>
+               </div>
+               
+  
+
+</body>
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-firestore.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#config-web-app -->
+    
+        <script>  
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBv6yIMLAPO2AsrQDSMCuNSzWQKeGgUq5A",
+            authDomain: "test-18579.firebaseapp.com",
+            databaseURL: "https://test-18579.firebaseio.com",
+            projectId: "test-18579",
+            storageBucket: "test-18579.appspot.com",
+            messagingSenderId: "119631748247",
+            appId: "1:119631748247:web:79ba28cac84bdc4a"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+       
+        const db=firebase.firestore();
+        
+        </script>
+    
+    
+    
+       <script>   
+       // Get Email Id From Url
+    
+          // search for user
+           const user_mail='<%= id %>';
+    
+        var docRef = db.collection("users").doc(user_mail);
+        docRef.get().then(function(doc) {
+            if (doc.exists) {
+                    console.log(doc.data());
+              //Set Username 
+            document.getElementById('admin_name').innerHTML=doc.data().Username;
+                   document.getElementById('page-title').innerHTML="@"+doc.data().Username+" | LinkC";
+             // color set
+                     if(doc.data().col=="1")
+                        {
+                          document.getElementById("body-id").style.background = "#9796f0";
+                          document.getElementById("body-id").style.background = "-webkit-linear-gradient(to right, #fbc7d4, #9796f0)";
+                          document.getElementById("body-id").style.background = "linear-gradient(to right, #ee9ca7, #ffdde1)";                      
+                          }
+                    else if(doc.data().col=="2")
+                          {
+                       document.getElementById("body-id").style.background = "#ee9ca7";
+                       document.getElementById("body-id").style.background = "-webkit-linear-gradient(to right, #ee9ca7, #ffdde1)";
+                       document.getElementById("body-id").style.background = "linear-gradient(to right, #fbc7d4, #9796f0)";                      
+                            }
+                     else if(doc.data().col=="3")
+                          {
+                       document.getElementById("body-id").style.background = "#c6ffdd";
+                       document.getElementById("body-id").style.background = "-webkit-linear-gradient(to right, #c6ffdd, #fbd786, #f7797d)";
+                       document.getElementById("body-id").style.background = "linear-gradient(to right, #c6ffdd, #fbd786, #f7797d)";                      
+                            }
+                      else if(doc.data().col=="4")
+                          {
+                       document.getElementById("body-id").style.background = "#a8ff78";
+                       document.getElementById("body-id").style.background = "-webkit-linear-gradient(to right, #a8ff78, #78ffd6)";
+                       document.getElementById("body-id").style.background = "linear-gradient(to right, #a8ff78, #78ffd6)"; 
+                                           
+                            }
+                  
+        // List of Buttons which is created by user
+            
+        db.collection('users').doc(user_mail).collection('user-button').get().then(snapshot => {
+       
+              setupGuides(snapshot.docs);
+             }) ;
+     
+            const guideList= document.querySelector('.guides');
+             const setupGuides= (data) =>{
+              let html='';
+               
+      data.forEach(docs=> {
+        const users=docs.data();
+        
+        const li= `
+        <div class="row">
+                <div class="col-md-12">
+            <a class="btn-link" href=' ${users.Link}
+         '> 
+         <button type="button" class="btn btn-outline link-button">${users.Title}</button> 
+         
+         </a>       
+              </div>   
+            </div> 
+         
+        `;
+        
+        html+=li
+      });
+      guideList.innerHTML=html;
+      
+     }
+            
+            } // if docs exist closed
+            else {
+                // doc.data() will be undefined in this case
+                window.location = '404';
+            }
+             
+         }) 
+         </script>
+     
+</html>

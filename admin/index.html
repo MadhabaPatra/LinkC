@@ -24,6 +24,7 @@
 		    <table class="table table-striped guides">
                  <div class="alert alert-success">
        your site is published at <a id="user-link"></a>
+			<br> <a id="invite-link" >Invite Friends</a>
                   </div>
                   <tbody>
                    
@@ -53,7 +54,7 @@
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Your Link:</label>
-            <input type="text" class="form-control" id="link" />
+            <input type="text" class="form-control" id="link" value="https://" />
           </div>
         </form>
       </div>
@@ -174,7 +175,7 @@ firebase.auth().onAuthStateChanged(user=>{
 
   if(user){
    const user_mail= user.email;
-	  //serch username
+	  //search username
 	  
 db.collection("users").where("Email", "==", user_mail)
     .get()
@@ -185,8 +186,10 @@ db.collection("users").where("Email", "==", user_mail)
 		//User Dyanamic Link
 	  const cust_link="LinkC/"+user_name;
 	  document.getElementById('user-link').innerHTML=cust_link;
-	 document.getElementById('user-link').href="http://localhost:9000/"+cust_link;
-   console.log(user_name);
+	 document.getElementById('user-link').href="http://link-keep-er.herokuapp.com/"+cust_link;
+	const invite="whatsapp://send?text=Have a look on My Awesome Webpage : "+"http://link-keep-er.herokuapp.com/"+cust_link+"                                                                    Try it for free!! Sign up now  *linkc.madhaba.me*                                                                          Contact- madhabapatra@gmail.com";
+         document.getElementById('invite-link').href=invite;
+     console.log(user_name);
 	  
 		//
 	  
@@ -199,6 +202,28 @@ db.collection("users").where("Email", "==", user_mail)
 		document.getElementById('admin_name').innerHTML=doc.data().Username;
                   
 		document.getElementById('page-title').innerHTML=doc.data().Username;
+		
+		
+		 //Action button to  Delete  Link
+var parent=document.querySelector('.guides');
+     parent.addEventListener('click',DeleteLink,false);
+     function DeleteLink(e){
+       
+       if(e.target !=e.currentTarget){
+         var clickedbtn=e.target.id;
+      // Delete button Perform
+     if(e.target.textContent=="Delete"){
+       db.collection('users').doc(user_name).collection('user-button').doc(clickedbtn).delete().then(function() {
+    console.log("Document successfully deleted!");
+    window.location="index.html";
+}).catch(function(error) {
+    console.error("Error removing document: ", error);
+});
+}
+	       }
+       e.stopPropagation();
+     }
+		
 		// List of Buttons which is created bu user
 		
 		 db.collection('users').doc(user_name).collection('user-button').get().then(snapshot => {
@@ -223,7 +248,7 @@ const guideList= document.querySelector('.guides');
    html+=head;
   data.forEach(docs=> {
     const users=docs.data();
-    
+    const id=docs.id;
     const li= `
     <tr>
     <td>   
@@ -235,7 +260,7 @@ const guideList= document.querySelector('.guides');
      '> ${users.Link}</a>
      </td>
      <td>
-        <button type="button" class="btn btn-danger delete-btn" >Delete</button>
+        <button type="button" class="btn btn-danger" id="${id}" >Delete</button>
      </td>
      </tr>
      
@@ -263,7 +288,7 @@ const guideList= document.querySelector('.guides');
 	  
   }
   else {
-   window.location='http://madhaba.me/Link-Aggregator/Login/index.html';
+   window.location='index.html';
   }
 });
 
@@ -302,7 +327,7 @@ firebase.auth().onAuthStateChanged(user=>{
           Link: link
            })
         .then(function(docRef) {
-        window.location='http://madhaba.me/Link-Aggregator/admin/index.html';
+        window.location='index.html';
              }) 
 	 
 	 
@@ -331,7 +356,7 @@ firebase.auth().onAuthStateChanged(user=>{
         })
          .then(function() {
     console.log("Document successfully updated!");
-window.location='http://madhaba.me/Link-Aggregator/admin/index.html';
+window.location='index.html';
              })
 	 
 	 }) // end of update_temp event
