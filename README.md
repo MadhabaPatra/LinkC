@@ -2,7 +2,7 @@
 Make All Your Link Together
 
 # About
-This website is basically a clone of Linktree website.It basically stores all your links to important sites like your website,your portfolio,your social media,etc.U can easily share the link with all your friends and you can even post them on your social media,so that people can know about you from a single place.
+This is actually a link storer/keeper website.It stores all your links to important sites like your website,your portfolio,your social media,etc.You can easily share the link with all your friends and you can even post them on your social media,so that people can know about you from a single place.
 
 # Resources Used
 ![](https://img.shields.io/badge/Heroku-blueviolet.svg?style=for-the-badge&logo=heroku)
