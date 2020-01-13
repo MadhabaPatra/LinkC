@@ -15,7 +15,8 @@
   
             <div class="container text-center">
                 <h2>Welcome <span id="admin_name"> </span>  </h2>
-       <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Add New Link </button> &nbsp;&nbsp; &nbsp;
+       <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Add New Link </button> &nbsp;&nbsp;
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3" >Add Social Link </button> &nbsp;&nbsp; 
         <button type="button" class="btn btn-success" id="btn_add_col" data-toggle="modal" data-target="#exampleModal2">Template</button>&nbsp;&nbsp; &nbsp; 
         <button type="button" class="btn btn-danger" id="btn_logout">Logout</button>
          
@@ -65,7 +66,46 @@
     </div>
   </div>
 </div>      
-        
+    
+ <!-- Model open after click add social link -->     
+         
+ <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Social Button</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Social:</label>
+            <select class="form-control" id="social-type">
+              <option value="Facebook">Facebook</option> 
+            <option value="Instagram">Instagram</option> 
+            <option value="Github">Github</option> //
+            <option value="Youtube">Youtube</option>
+            <option value="Twitter">Twitter</option>
+            <option value="Snapchat">Snapchat</option>
+            <option value="Linkedin">LinkedIn</option>
+            <option value="Tiktok">TikTok</option>
+          </select>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Your Profile Link:</label>
+            <input type="text" class="form-control" id="link-social" value="https://" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" id="btn_add_social">Save</button>
+      </div>
+    </div>
+  </div>
+</div>      
 <!-- Model open after click Template -->    
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -320,10 +360,28 @@ firebase.auth().onAuthStateChanged(user=>{
 		console.log(user_name)
 		    // add new link to user button 
 	 document.getElementById("btn_add").addEventListener('click', e=>{
-	 const title=document.getElementById('title').value;
+   const title=document.getElementById('title').value;
 	 const link=document.getElementById('link').value;
       db.collection('users').doc(user_name).collection('user-button').add({
-          Title: title,
+          Type: "custom" ,
+          Title: profile,
+          Link: link
+           })
+        .then(function(docRef) {
+        window.location='index.html';
+             }) 
+	 
+	 
+   }) // end of btn_add event
+   
+	   // add Social link to user button 
+	 document.getElementById("btn_add_social").addEventListener('click', e=>{
+   const profile=document.getElementById('social-type').value;
+   const Title= "@"+document.getElementById('social-type').value;
+	 const link=document.getElementById('link-social').value;
+      db.collection('users').doc(user_name).collection('user-button').add({
+          Type: title,
+          Title: profile,
           Link: link
            })
         .then(function(docRef) {
@@ -332,7 +390,6 @@ firebase.auth().onAuthStateChanged(user=>{
 	 
 	 
 	 }) // end of btn_add event
-	  
 	  // set template color 
         document.getElementById("update_temp").addEventListener('click', e=>{
          var rate_value;
