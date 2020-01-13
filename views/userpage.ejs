@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700&amp;display=swap" rel="stylesheet">
 	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -37,9 +38,7 @@
         font-weight:bold;
         font-family: Karla,Helvetica,sans-serif;
     }
-    .btn-link{
-          
-          }
+    
     .link-button:hover{
         background-color: white;
         color:blue;
@@ -64,7 +63,7 @@
             <div class="container text-center" id="cust_col">
                 
                 <img src="/images/avatar.png" alt="" class="avatar" />
-                <h4>@ <span id="admin_name"> </span>  </h4>
+                <h4>@ <span id="admin_name"> </span> </h4>
               </div>
 	
                 <div class="container guides text-center">
@@ -108,15 +107,15 @@
     
     
        <script>   
-       // Get Email Id From Url
+       // Get  Id From Url
     
           // search for user
            const user_mail='<%= id %>';
-    
+          
         var docRef = db.collection("users").doc(user_mail);
         docRef.get().then(function(doc) {
             if (doc.exists) {
-                    console.log(doc.data());
+                   
               //Set Username 
             document.getElementById('admin_name').innerHTML=doc.data().Username;
                    document.getElementById('page-title').innerHTML="@"+doc.data().Username+" | LinkC";
@@ -146,7 +145,8 @@
                        document.getElementById("body-id").style.background = "linear-gradient(to right, #a8ff78, #78ffd6)"; 
                                            
                             }
-                  
+                 
+
         // List of Buttons which is created by user
             
         db.collection('users').doc(user_mail).collection('user-button').get().then(snapshot => {
@@ -160,8 +160,9 @@
                
       data.forEach(docs=> {
         const users=docs.data();
-        console.log(users);
-       if (users.Type== "custom"){
+
+        const usertype= users.Type;
+      if(usertype==("custom")){
         const li= `
         <div class="row">
                 <div class="col-md-12">
@@ -183,7 +184,7 @@
                 <div class="col-md-12">
             <a class="btn-link" href=' ${users.Link}
          '> 
-         <button type="button" class="btn btn-outline link-button">${users.Title} <i class="fab fa-${users.Type}"></i></button> 
+         <button type="button" class="btn btn-outline link-button"> <i class="fab fa-${users.Type}"></i>  ${users.Title}</button> 
          
          </a>       
               </div>   

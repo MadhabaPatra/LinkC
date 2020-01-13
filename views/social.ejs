@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-firestore.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#config-web-app -->
+
+    <script>  
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyBv6yIMLAPO2AsrQDSMCuNSzWQKeGgUq5A",
+        authDomain: "test-18579.firebaseapp.com",
+        databaseURL: "https://test-18579.firebaseio.com",
+        projectId: "test-18579",
+        storageBucket: "test-18579.appspot.com",
+        messagingSenderId: "119631748247",
+        appId: "1:119631748247:web:79ba28cac84bdc4a"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+   
+    const db=firebase.firestore();
+    
+    </script>
+
+
+<script>   
+    // Get  Id From Url
+ 
+       // search for user
+        const user_mail='<%= id %>';
+       
+     var docRef = db.collection("users").doc(user_mail);
+     docRef.get().then(function(doc) {
+         if (doc.exists) {
+                 db.collection('users').doc(user_mail).collection('user-button').get().then(snapshot => {
+     
+       setup(snapshot.docs);
+       
+      }) ;
+      const setup= (data) =>{
+      data.forEach(docs=> {
+         const users=docs.data();
+        const usertype= users.Type;
+        const socialId='<%= sid %>';
+        if(socialId!="custom" && users.Type==socialId){
+            console.log("redirecting");
+ window.location=users.Link;
+        }                  
+      })
+     } // setup data closed
+     
+                } // if docs exist closed
+               
+            else {
+                // doc.data() will be undefined in this case
+                window.location = '../404';
+            }
+             
+         }) 
+         </script>
+</body>
+</html>

@@ -3,6 +3,8 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -15,10 +17,10 @@
   
             <div class="container text-center">
                 <h2>Welcome <span id="admin_name"> </span>  </h2>
-       <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Add New Link </button> &nbsp;&nbsp;
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3" >Add Social Link </button> &nbsp;&nbsp; 
-        <button type="button" class="btn btn-success" id="btn_add_col" data-toggle="modal" data-target="#exampleModal2">Template</button>&nbsp;&nbsp; &nbsp; 
-        <button type="button" class="btn btn-danger" id="btn_logout">Logout</button>
+       <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" ><i class="fas fa-plus"></i> New Link </button> &nbsp;&nbsp;
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal3" ><i class="fas fa-user-plus"></i> Add Social Link </button> &nbsp;&nbsp; 
+        <button type="button" class="btn btn-success" id="btn_add_col" data-toggle="modal" data-target="#exampleModal2"><i class="fas fa-sliders-h"></i> Template</button>&nbsp;&nbsp; &nbsp; 
+        <button type="button" class="btn btn-danger" id="btn_logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
          
         </p>      
 		    
@@ -82,19 +84,19 @@
         <form>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Social:</label>
-            <select class="form-control" id="social-type">
-              <option value="Facebook">Facebook</option> 
-            <option value="Instagram">Instagram</option> 
-            <option value="Github">Github</option> //
-            <option value="Youtube">Youtube</option>
-            <option value="Twitter">Twitter</option>
-            <option value="Snapchat">Snapchat</option>
-            <option value="Linkedin">LinkedIn</option>
-            <option value="Tiktok">TikTok</option>
+            <select class="form-control" id="social-type" onchange="SocialChoice()">
+              <option hidden="hidden"></i>Choose</option> 
+              <option value="facebook"> Facebook</option> 
+            <option value="instagram"></i> Instagram</option> 
+            <option value="github"> Github</option>
+            <option value="youtube">Youtube</option>
+            <option value="twitter">Twitter</option>
+            <option value="snapchat"> Snapchat</option>
+            <option value="linkedin">LinkedIn</option>
           </select>
           </div>
           <div class="form-group">
-            <label for="message-text" class="col-form-label">Your Profile Link:</label>
+            <label for="message-text" class="col-form-label" id="social-label">Your Profile Link:</label>
             <input type="text" class="form-control" id="link-social" value="https://" />
           </div>
         </form>
@@ -105,7 +107,15 @@
       </div>
     </div>
   </div>
-</div>      
+</div>  
+<script>
+  function SocialChoice() {
+    var x = document.getElementById("social-type").value;
+    var y=x.charAt(0).toUpperCase() + x.slice(1);
+    document.getElementById("social-label").innerHTML= "Your "+y+" Link: ";
+    document.getElementById("link-social").value= "https://"+ x +".com/";
+  }
+  </script>    
 <!-- Model open after click Template -->    
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -364,7 +374,7 @@ firebase.auth().onAuthStateChanged(user=>{
 	 const link=document.getElementById('link').value;
       db.collection('users').doc(user_name).collection('user-button').add({
           Type: "custom" ,
-          Title: profile,
+          Title: title,
           Link: link
            })
         .then(function(docRef) {
@@ -376,12 +386,14 @@ firebase.auth().onAuthStateChanged(user=>{
    
 	   // add Social link to user button 
 	 document.getElementById("btn_add_social").addEventListener('click', e=>{
+    
    const profile=document.getElementById('social-type').value;
-   const Title= "@"+document.getElementById('social-type').value;
-	 const link=document.getElementById('link-social').value;
-      db.collection('users').doc(user_name).collection('user-button').add({
-          Type: title,
-          Title: profile,
+   const title= document.getElementById('social-type').value;
+   const link=document.getElementById('link-social').value;
+
+   db.collection('users').doc(user_name).collection('user-button').add({
+          Type: profile ,
+          Title: title,
           Link: link
            })
         .then(function(docRef) {

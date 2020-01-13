@@ -19,6 +19,19 @@ app.get('/linkc/:id', function (req, res) {
    } );
 }).listen(PORT)
 
+app.get('/linkc/:id/:sid', function (req, res) {
+   console.log('is working');
+   //res.send('your id is : '+req.params.id);
+      if(req.params.id=='404')
+        {
+         res.render('404',{
+      id:req.params.id
+   } );
+           }
+   res.render('social',{
+      id:req.params.id,sid:req.params.sid
+   } );
+}).listen(PORT)
 
 /*var server = app.listen(8081, function () {
    var host = server.address().address
