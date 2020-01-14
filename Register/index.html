@@ -177,6 +177,8 @@
 
 		} else {
 			 //signed up and insert data into database
+			 
+		
 			firebase.auth().createUserWithEmailAndPassword(email, pass).then(function(querySnapshot) {
 				db.collection("users").doc(userId).set({
 					Email: email,
@@ -184,7 +186,11 @@
 					Username: userId,
 					col: "4",
 					type: "Free"
-					})
+					}).then(function() {
+						document.getElementById("msg").innerHTML="You have successfully registered.";
+          				document.getElementById("msg").style.color="green";
+						  window.location="../admin/index.html";
+})
 				//error if wrong details
 			}).catch(function(error) {
 				if(error.code=="auth/invalid-email"){
@@ -205,6 +211,7 @@
                 }
 		console.log(error);
 	})
+	
 		}
 	}).catch(function(error) {
 		document.getElementById("msg").innerHTML="Server Down";
@@ -215,15 +222,5 @@
 	});// button event closed
 </script>
 
-
-<script>  
-//if signed redirect to admin page
-firebase.auth().onAuthStateChanged(user=>{ 
-	if(user){
-		window.location = '../admin/index.html';
-		} 
-	})
-</script>
-	
 </body>
 </html>
