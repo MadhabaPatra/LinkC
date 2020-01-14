@@ -14,19 +14,73 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+  <style>
+    /* font-family: 'Montserrat', sans-serif; */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+    h4{
+        font-family: Karla,Helvetica,sans-serif;
+        color:black; 
+    }
+   .container button{
+     margin-bottom: 10px;
+   }
   
-            <div class="container text-center">
-                <h2>Welcome <span id="admin_name"> </span>  </h2>
+    .alert-white {
+    background: rgba(255,255,255,0.5);
+
+   }
+   #user-link{
+    font-size: 24px;
+    line-height: 1.42857143;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 20px;
+   }
+   .brand{
+        background-color: white;
+        top: 0px;
+        left:0px;
+        position: fixed;
+    }
+    #upload_link{
+    text-decoration:none;
+}
+.profile-section{
+top: 0;
+left: 50%;
+transform: translate(-50%);
+position: relative;
+}
+#upload{
+    display:none
+}
+.avatar{
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+    }
+.avatar:hover{
+  opacity: 0.5;
+}
+    </style>
+            <div class="container text-center ">
+              <div class="profile-section">
+                  <input id="upload" type="file"/>
+                  <a href="" id="upload_link">
+                <img  alt="" class="avatar" id="profile_photo" /></a>
+              </div>
+                
+            
+              <h4>@ <span id="admin_name"> </span> </h4>
        <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" ><i class="fas fa-plus"></i> New Link </button> &nbsp;&nbsp;
         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal3" ><i class="fas fa-user-plus"></i> Add Social Link </button> &nbsp;&nbsp; 
         <button type="button" class="btn btn-success" id="btn_add_col" data-toggle="modal" data-target="#exampleModal2"><i class="fas fa-sliders-h"></i> Template</button>&nbsp;&nbsp; &nbsp; 
         <button type="button" class="btn btn-danger" id="btn_logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
          
         </p>      
-		    
 		    <table class="table table-striped guides">
-                 <div class="alert alert-success">
-       your site is published at <a id="user-link"></a>
+                 <div class="alert alert-secondary">
+       Your site is published at <a id="user-link"></a>
 			<br> <a id="invite-link" >Invite Friends</a>
                   </div>
                   <tbody>
@@ -194,6 +248,7 @@
     <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-firestore.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-storage.js"></script>
     <!-- TODO: Add SDKs for Firebase products that you want to use
         https://firebase.google.com/docs/web/setup#config-web-app -->
 
@@ -367,7 +422,40 @@ firebase.auth().onAuthStateChanged(user=>{
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
             const user_name=doc.id;
-		console.log(user_name)
+		// update profile photo
+    var storage = firebase.storage();
+        var storageRef = storage.ref();
+        var path='user-images/'+user_name+".png";
+        document.getElementById("upload").addEventListener('change', e=>{
+
+var file = e.target.files[0];
+
+var task=storageRef.child(path).put(file).then(function(snapshot) {
+  console.log(snapshot);
+  window.location='index.html';
+});
+
+})
+
+storageRef.child(path).getDownloadURL().then(function(url) {
+  // `url` is the download URL for 'images/stars.jpg'
+
+  /* This can be downloaded directly:
+  var xhr = new XMLHttpRequest();
+  xhr.responseType = 'blob';
+  xhr.onload = function(event) {
+    var blob = xhr.response;
+  };
+  xhr.open('GET', url);
+  xhr.send();
+*/
+  // Or inserted into an <img> element:
+  var img = document.getElementById('profile_photo');
+  img.src = url;
+}).catch(function(error) {
+  console.log(error);
+});
+
 		    // add new link to user button 
 	 document.getElementById("btn_add").addEventListener('click', e=>{
    const title=document.getElementById('title').value;
@@ -439,6 +527,19 @@ window.location='index.html';
 
 </script>
 
+<script>
+  // conversoin img tag to file upload tag
+$(function(){
+$("#upload_link").on('click', function(e){
+    e.preventDefault();
+    $("#upload:hidden").trigger('click');
+});
+});
 
+
+</script>
+<div class="footer text-center brand">
+  <a href="https://LinkC.madhaba.me"><img src="../images/logo.png" alt="" class="logo"/> </a>
+</div>
 </body>
 </html>

@@ -46,12 +46,10 @@
     .avatar{
         border-radius: 50%;
         width: 200px;
-        
         vertical-align: middle;
     }
     .brand{
         width: 100%;
-        
         background-color: white;
         bottom:0px;
         position: absolute;
@@ -62,7 +60,7 @@
   
             <div class="container text-center" id="cust_col">
                 
-                <img src="/images/avatar.png" alt="" class="avatar" />
+                <img  class="avatar" id="profile_photo" />
                 <h4>@ <span id="admin_name"> </span> </h4>
               </div>
 	
@@ -83,6 +81,7 @@
         <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-storage.js"></script>
         <!-- TODO: Add SDKs for Firebase products that you want to use
             https://firebase.google.com/docs/web/setup#config-web-app -->
     
@@ -119,6 +118,29 @@
               //Set Username 
             document.getElementById('admin_name').innerHTML=doc.data().Username;
                    document.getElementById('page-title').innerHTML="@"+doc.data().Username+" | LinkC";
+                   // Profile Photo
+        var storage = firebase.storage();
+        var storageRef = storage.ref();
+        var path='user-images/'+doc.data().Username+".png";
+console.log(path);
+                   storageRef.child(path).getDownloadURL().then(function(url) {
+  // `url` is the download URL for 'images/stars.jpg'
+
+  /* This can be downloaded directly:
+  var xhr = new XMLHttpRequest();
+  xhr.responseType = 'blob';
+  xhr.onload = function(event) {
+    var blob = xhr.response;
+  };
+  xhr.open('GET', url);
+  xhr.send();
+*/
+  // Or inserted into an <img> element:
+  var img = document.getElementById('profile_photo');
+  img.src = url;
+}).catch(function(error) {
+  console.log(error);
+});
              // color set
                      if(doc.data().col=="1")
                         {
