@@ -454,6 +454,7 @@ storageRef.child(path).getDownloadURL().then(function(url) {
   img.src = url;
 }).catch(function(error) {
   console.log(error);
+	document.getElementById('profile_photo').src = 'add_image.png';
 });
 
 		    // add new link to user button 
