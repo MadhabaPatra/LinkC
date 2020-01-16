@@ -11,5 +11,5 @@ This is actually a link storer/keeper website.It stores all your links to import
 
 
 
-[![](https://img.shields.io/badge/Website-darkcyan.svg?style=for-the-badge)](http://madhaba.me/LinkC) 
+[![](https://img.shields.io/badge/Website-darkcyan.svg?style=for-the-badge)](linkc.madhaba.me) 
 [![](https://img.shields.io/badge/chaton-Gitter-darkcyan.svg?style=for-the-badge&logo=gitter)](https://gitter.im/link-aggregator/community)
