@@ -289,10 +289,10 @@ db.collection("users").where("Email", "==", user_mail)
             // doc.data() is never undefined for query doc snapshots
             const user_name=doc.id;
 		//User Dyanamic Link
-	  const cust_link="LinkC/"+user_name;
+	  const cust_link=user_name;
 	  document.getElementById('user-link').innerHTML=cust_link;
 	 document.getElementById('user-link').href="http://linkc.herokuapp.com/"+cust_link;
-	const invite="whatsapp://send?text=Have a look on My Awesome Webpage : "+"http://linkc.herokuapp.com/"+cust_link+"                                                                    Try it for free!! Sign up now  *linkc.madhaba.me*                                                                          Contact- madhabapatra@gmail.com";
+	const invite="whatsapp://send?text=Have a look on My Awesome Webpage:"+"http://linkc.herokuapp.com/"+cust_link+"                                                                    Try it for free!!*linkc.madhaba.me*";
          document.getElementById('invite-link').href=invite;
      console.log(user_name);
 	  
