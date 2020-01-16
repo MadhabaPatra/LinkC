@@ -5,7 +5,7 @@ app.set('view engine', 'ejs');
 app.set('views','./views');
 app.use(express.static('views'));
 var PORT=process.env.PORT || 9000;
-app.get('/linkc/:id', function (req, res) {
+app.get('/:id', function (req, res) {
    console.log('working');
    //res.send('your id is : '+req.params.id);
       if(req.params.id=='404')
@@ -19,7 +19,7 @@ app.get('/linkc/:id', function (req, res) {
    } );
 })
 
-app.get('/linkc/:id/:sid', function (req, res) {
+app.get('/:id/:sid', function (req, res) {
    console.log('is working');
    //res.send('your id is : '+req.params.id);
       if(req.params.id=='404')
