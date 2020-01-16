@@ -5,6 +5,11 @@ app.set('view engine', 'ejs');
 app.set('views','./views');
 app.use(express.static('views'));
 var PORT=process.env.PORT || 9000;
+app.get('/', function (req, res) {
+   console.log('working');
+     res.render('homepage',{
+   } );
+})
 app.get('/:id', function (req, res) {
    console.log('working');
    //res.send('your id is : '+req.params.id);
