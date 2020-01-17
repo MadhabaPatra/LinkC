@@ -15,20 +15,37 @@
 </head>
 <body>
   <style>
+
     /* font-family: 'Montserrat', sans-serif; */
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+   body{
+      background-attachment: fixed;
+      background-image: url('bg-img.jpg');
+      background-size: 100% 100%;
+     width: 100%;
+     height: 100%;
+     background-repeat: no-repeat;
+    
+   }
+   td{
+     color: black;
+     font-weight: 500;
+   }
+   td a {
+     color: white;
+   }
     h4{
         font-family: Karla,Helvetica,sans-serif;
-        color:black; 
+        color: white;
     }
+#admin_name{
+  font-size: 24px;
+  font-weight:bold;
+}
    .container button{
      margin-bottom: 10px;
    }
   
-    .alert-white {
-    background: rgba(255,255,255,0.5);
-
-   }
    #user-link{
     font-size: 24px;
     line-height: 1.42857143;
@@ -66,6 +83,9 @@ position: relative;
 		  .brand{
 		  display:none;
 		  }
+      #user-link{
+        font-size: 18px; 
+      }
 	  }
     </style>
             <div class="container text-center ">
@@ -80,6 +100,7 @@ position: relative;
        <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" ><i class="fas fa-plus"></i> New Link </button> &nbsp;&nbsp;
         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal3" ><i class="fas fa-user-plus"></i> Add Social Link </button> &nbsp;&nbsp; 
         <button type="button" class="btn btn-success" id="btn_add_col" data-toggle="modal" data-target="#exampleModal2"><i class="fas fa-sliders-h"></i> Template</button>&nbsp;&nbsp; &nbsp; 
+      <!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal4" id="btn_setting"><i class="fas fa-user-cog"></i> Setting</button>&nbsp;&nbsp; &nbsp; --> 
         <button type="button" class="btn btn-danger" id="btn_logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
          
         </p>      
@@ -255,7 +276,48 @@ position: relative;
 
   </script>	
 	
-	
+  
+  
+    <!-- Model open after click setting -->     
+         
+<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel3">Settings & Security </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Email: </label>
+              <label for="message-text" class="col-form-label">madhabapatra@gmail.com</label>
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Account Type: </label>
+              <label for="message-text" class="col-form-label">Free</label>
+            </div>
+            <div class="form-group">
+                <label for="message-text" class="col-form-label">Change username:  </label>
+                <input type="text" class="form-control" id="username-field"/>
+              </div>
+              <div class="form-group">
+                  <label for="message-text" class="col-form-label">Change password:  </label>
+                  <input type="text" class="form-control" id="username-field"/>
+                </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="btn_acc_delete">Delete Account Permanately</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-info" id="btn_acc_upd">Update Profile</button>
+        </div>
+      </div>
+    </div>
+  </div>      
+      
 	
         <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
@@ -281,8 +343,7 @@ position: relative;
     var auth=firebase.auth();
     const db=firebase.firestore();
 
-    
-
+   
     </script>
 
 
@@ -292,7 +353,8 @@ position: relative;
 firebase.auth().onAuthStateChanged(user=>{ 
 
   if(user){
-   const user_mail= user.email;
+   const user_mail= user.email; 
+   console.log(user.emailVerified);
 	  //search username
 	  
 db.collection("users").where("Email", "==", user_mail)
@@ -321,7 +383,8 @@ db.collection("users").where("Email", "==", user_mail)
                   
 		document.getElementById('page-title').innerHTML=doc.data().Username;
 		
-		
+	
+
 		 //Action button to  Delete  Link
 var parent=document.querySelector('.guides');
      parent.addEventListener('click',DeleteLink,false);
@@ -359,7 +422,7 @@ const guideList= document.querySelector('.guides');
                      
                       <th>Titles</th>
                       <th>Links</th>
-                      <th>Delete Button <i class="fas fa-trash"></i></th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
    `;
@@ -378,7 +441,7 @@ const guideList= document.querySelector('.guides');
      '> ${users.Link}</a>
      </td>
      <td>
-        <button type="button" class="btn btn-danger" id="${id}" >Delete</button>
+        <button type="button" class="btn btn-danger" id="${id}" ><i class="fas fa-trash"></i></button>
      </td>
      </tr>
      
@@ -435,6 +498,10 @@ firebase.auth().onAuthStateChanged(user=>{
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
             const user_name=doc.id;
+
+     	
+ 
+
 		// update profile photo
     var storage = firebase.storage();
         var storageRef = storage.ref();
