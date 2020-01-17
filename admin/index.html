@@ -147,6 +147,7 @@ position: relative;
             <option value="twitter">Twitter</option>
             <option value="snapchat"> Snapchat</option>
             <option value="linkedin">LinkedIn</option>
+	    <option value="phone">Phone</option>
           </select>
           </div>
           <div class="form-group">
@@ -168,6 +169,10 @@ position: relative;
     var y=x.charAt(0).toUpperCase() + x.slice(1);
     document.getElementById("social-label").innerHTML= "Your "+y+" Link: ";
     document.getElementById("link-social").value= "https://"+ x +".com/";
+	  if (x === "phone"){
+		document.getElementById("social-label").innerHTML= "Your Phone number ";
+    document.getElementById("link-social").value= "tel:";  
+	  }  
   }
   </script>    
 <!-- Model open after click Template -->    
