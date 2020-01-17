@@ -62,6 +62,11 @@ position: relative;
 .avatar:hover{
   opacity: 0.5;
 }
+	  @media only screen and (max-width: 600px){
+		  .brand{
+		  display:none;
+		  }
+	  }
     </style>
             <div class="container text-center ">
               <div class="profile-section">
@@ -78,10 +83,13 @@ position: relative;
         <button type="button" class="btn btn-danger" id="btn_logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
          
         </p>      
+	</div>
+	
+	<div class="text-center">
 		    <table class="table table-striped guides">
-                 <div class="alert alert-secondary">
+                 <div class="alert alert-info">
        Your site is published at <a id="user-link" target="_blank"></a>
-			<br> <a id="invite-link" >Invite Friends</a>
+			<br> <a id="invite-link" >Invite Friends <i class="fab fa-whatsapp"></i></a>
                   </div>
                   <tbody>
                    
@@ -295,9 +303,9 @@ db.collection("users").where("Email", "==", user_mail)
             const user_name=doc.id;
 		//User Dyanamic Link
 	  const cust_link=user_name;
-	  document.getElementById('user-link').innerHTML=cust_link;
+	  document.getElementById('user-link').innerHTML="http://linkc.herokuapp.com/"+cust_link;
 	 document.getElementById('user-link').href="http://linkc.herokuapp.com/"+cust_link;
-	const invite="whatsapp://send?text=Have a look on My Awesome Webpage:"+"http://linkc.herokuapp.com/"+cust_link+"                                                                    Try it for free!!*linkc.madhaba.me*";
+	const invite="whatsapp://send?text=Have a look on My Awesome Webpage:"+"http://linkc.herokuapp.com/"+cust_link+"                                                                    Try it for free!! *linkc.madhaba.me*";
          document.getElementById('invite-link').href=invite;
      console.log(user_name);
 	  
@@ -351,7 +359,7 @@ const guideList= document.querySelector('.guides');
                      
                       <th>Titles</th>
                       <th>Links</th>
-                      <th>DELETE BUTTON</th>
+                      <th>Delete Button <i class="fas fa-trash"></i></th>
                     </tr>
                   </thead>
    `;
