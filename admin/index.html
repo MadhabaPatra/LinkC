@@ -173,6 +173,7 @@ position: relative;
             <option value="twitter">Twitter</option>
             <option value="snapchat"> Snapchat</option>
             <option value="linkedin">LinkedIn</option>
+	     <option value="whatsapp">Whatsapp</option>
 	    <option value="phone">Phone</option>
           </select>
           </div>
@@ -198,6 +199,10 @@ position: relative;
 	  if (x === "phone"){
 		document.getElementById("social-label").innerHTML= "Your Phone number ";
     document.getElementById("link-social").value= "tel:";  
+	  }  
+	   if (x === "whatsapp"){
+		document.getElementById("social-label").innerHTML= "Your Whatsapp number ";
+    document.getElementById("link-social").value= " https://wa.me/";  
 	  }  
   }
   </script>    
