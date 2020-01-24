@@ -179,7 +179,8 @@ position: relative;
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label" id="social-label">Your Profile Link:</label>
-            <input type="text" class="form-control" id="link-social" value="https://" />
+            <input type="text" class="form-control" id="link-social" />
+	    <label for="message-text" class="col-form-label" id="social-label-notice"></label>
           </div>
         </form>
       </div>
@@ -201,8 +202,10 @@ position: relative;
     document.getElementById("link-social").value= "tel:";  
 	  }  
 	   if (x === "whatsapp"){
-		document.getElementById("social-label").innerHTML= "Your Whatsapp number ";
-    document.getElementById("link-social").value= " https://wa.me/";  
+		document.getElementById("social-label").innerHTML= "Your Whatsapp number (Ex: 917873476062)";
+    document.getElementById("link-social").value= " https://wa.me/91";  
+	 document.getElementById("social-label-notice").value= "Your whatsapp number should be start from 91";   
+		   
 	  }  
   }
   </script>    
